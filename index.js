@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path')
+const request = require('request')
 
 const PORT = process.env.PORT || 3000
 
@@ -8,9 +9,19 @@ const app = express();
 app.use(express.static('public'));
 
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './index.html'));
-})
+app.get("*", function(req, res) {
+    if (req.device.type === 'bot') {
+        request.get('https://podiatristdev.herokuapp.com' + req.path, function(error, response, body) {
+          res.send(200, body)
+        });
+    } else {
+        res.sendFile(path.join(__dirname, './index.html'));
+    }
+  })
+
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, './index.html'));
+// })
 
 
 app.listen(PORT, err => {
