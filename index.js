@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path')
 
+const PORT = process.env.PORT || 3000
+
 const app = express();
 
 app.use(express.static('public'));
@@ -11,10 +13,10 @@ app.get('/', (req, res) => {
 })
 
 
-app.listen(3000, err => {
+app.listen(PORT, err => {
     if (err) {
         throw err;
     }
 
-    console.log(`Server started`)
+    console.log(`Server started on port ${PORT}`)
 })
