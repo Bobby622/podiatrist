@@ -2,11 +2,15 @@ const express = require('express');
 const path = require('path')
 const request = require('request')
 
+const  device = require('express-device');
+
+
 const PORT = process.env.PORT || 3000
 
 const app = express();
 
 app.use(express.static('public'));
+app.use(device.capture());
 
 
 app.get("*", function(req, res) {
